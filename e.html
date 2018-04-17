@@ -1,0 +1,28 @@
+<form method="POST" action="index.php?id=e">
+    <p>Na przykład: Ball, Gill, </p>
+    <p>Szukanie po nazwisku: <input type="text" name="nazwisko"><button type="submit">Szukaj</button></p>
+</form>
+
+<table border = 1>
+<tr><th>id</th><th>imie</th><th>nazwisko</th><th>miejsce urodzenia</th><th>data</th><th>wiek</th></tr>
+<?php
+
+    $nazwisko = isset($_POST['nazwisko']) ? $_POST['nazwisko'] : "";
+    $nazwisko = strip_tags($nazwisko);
+
+    $sql = "SELECT * FROM `dane_osobowe` WHERE nazwisko='".$nazwisko."';";
+    
+    $result = mysqli_query($connection, $sql);
+    
+    if (mysqli_num_rows($result) > 0 && ($nazwisko != "")) {
+        // output data of each row
+        while($row = mysqli_fetch_assoc($result)) {
+        echo "<tr><td>".$row["id"]."</td><td>".$row["imie"]."</td><td>" .$row["nazwisko"]."</td><td>".$row["miejsce_urodzenia"]."</td><td>".$row["data"]."</td><td>".$row["wiek"]."</tr>";
+    }} else if ($nazwisko == "") {
+        echo "<i>Nie wpisano żadnej wartosci!</i><br><br>";
+    } else {
+        echo "0 results";
+    }
+    
+?>
+</table>	

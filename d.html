@@ -1,0 +1,19 @@
+<h1>Baza danych</h1>
+
+<table border = 1>
+<tr><th>id</th><th>imie</th><th>nazwisko</th><th>miejsce urodzenia</th><th>data</th><th>wiek</th></tr>
+<?php
+    $sql = "SELECT * FROM `dane_osobowe` WHERE wiek BETWEEN 10 AND 18";
+    $result = mysqli_query($connection, $sql);
+    
+    if (mysqli_num_rows($result) > 0) {
+    
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        echo "<tr><td>".$row["id"]."</td><td>".$row["imie"]."</td><td>" .$row["nazwisko"]."</td><td>".$row["miejsce_urodzenia"]."</td><td>".$row["data"]."</td><td>".$row["wiek"]."</tr>";
+    }
+    } else {
+        echo "0 results";
+    }
+?>
+</table>
